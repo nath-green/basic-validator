@@ -1,4 +1,4 @@
-export default class Validator {
+class Validator {
   constructor() {
     this.rules = [];
     this.error = [];
@@ -20,7 +20,7 @@ export default class Validator {
   validate(toTest) {
     this.error = [];
 
-    this.rules.forEach((rule) => {
+    this.rules.forEach(rule => {
       const { fn, params, message } = rule;
       if (!fn(toTest, ...params)) this.error.push(message);
     });
@@ -28,3 +28,7 @@ export default class Validator {
     return this.error.length === 0;
   }
 }
+
+module.exports = {
+  Validator
+};

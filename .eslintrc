@@ -1,10 +1,9 @@
 {
-  "parser": "babel-eslint",
-  "extends": "airbnb",
-  "env": {
-    "mocha": true
-  },
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
-    "comma-dangle": ["error", "only-multiline"]
+    "prettier/prettier": ["error"],
+    "import/no-dynamic-require": "warn",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
   }
 }
