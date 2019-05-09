@@ -24,11 +24,10 @@ const password = new Validator();
 
 #### Validator methods
 
-| method                                                    | argument              | description                                                 |
-| --------------------------------------------------------- | --------------------- | ----------------------------------------------------------- |
-| [`rule()`](#user-content-adding-rules-with-ruleobj)       | Object `{}`           | Add a validation rule                                       |
-| [`validate()`](#user-content-validating-with-validateval) | Value to be validated | Loop over all validation rules, returning `true` or `false` |
-| [`errors()`](#user-content-retrieving-errors-with-errors) | `N/A`                 | Return an `array` of error messages                         |
+| method                                                    | argument              | description                                                                                           |
+| --------------------------------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------- |
+| [`rule()`](#user-content-adding-rules-with-ruleobj)       | Object `{}`           | Add a validation rule                                                                                 |
+| [`validate()`](#user-content-validating-with-validateval) | Value to be validated | Loop over all validation rules, returning an object containing `valid` (boolean) and `errors` (array) |
 
 #### Adding rules with `.rule({...obj})`
 
@@ -84,22 +83,21 @@ password
 
 #### Validating with `.validate(val)`
 
-Once the `Validator` has been created and rules added, running validation can be called with `.validate(val)` - passing the value to be validated.
+Once the `Validator` has been created and rules added, running validation can be called with `.validate(val)` - passing the value to be validated. The validate function will return an object containing two keys; `valid` and `errors`.
+
+The key `valid` will be a boolean, `errors` will be an array of messages defined from the rules.
 
 For example:
 
 ```js
-password.validate('hello'); // false
-password.validate('pass-word_here'); // true
-```
-
-#### Retrieving errors with `.errors()`
-
-Use this method to retrieve an array of error messages for the failed validation rules.
-
-For example:
-
-```js
-password.validate('hel_lo'); // false
-password.errors(); // ["Chars need to be between 10 and 15", "Must contain a dash"]
+password.validate('hello');
+// {
+//   valid: false,
+//   errors: ['Must contain an underscore', 'Must contain a dash']
+// }
+password.validate('pass-word_here');
+// {
+//   valid: true,
+//   errors: []
+// }
 ```

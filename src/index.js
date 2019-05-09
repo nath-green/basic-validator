@@ -1,7 +1,6 @@
 class Validator {
   constructor() {
     this.rules = [];
-    this.error = [];
   }
 
   rule({ fn, params = [], message }) {
@@ -13,19 +12,18 @@ class Validator {
     return this;
   }
 
-  errors() {
-    return this.error;
-  }
-
   validate(toTest) {
-    this.error = [];
+    const errors = [];
 
     this.rules.forEach(rule => {
       const { fn, params, message } = rule;
-      if (!fn(toTest, ...params)) this.error.push(message);
+      if (!fn(toTest, ...params)) errors.push(message);
     });
 
-    return this.error.length === 0;
+    return {
+      valid: errors.length === 0,
+      errors
+    };
   }
 }
 
